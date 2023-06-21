@@ -11,39 +11,24 @@ import {
 	createStyles,
 	rem,
 } from '@mantine/core';
-import {
-	IconBrandMantine,
-	IconBrandNextjs,
-	IconBrandOauth,
-	IconBrandPlanetscale,
-	IconBrandReact,
-} from '@tabler/icons-react';
+import { IconNumber1, IconNumber2, IconNumber3 } from '@tabler/icons-react';
 
 export const featuresData = [
 	{
-		icon: IconBrandNextjs,
-		title: 'Next.js',
-		description: 'App dir, Routing, Layouts, Loading UI and API routes.',
+		icon: IconNumber1,
+		title: 'Register on the platform',
+		description: 'Fill in your details and register to get started',
 	},
 	{
-		icon: IconBrandReact,
-		title: 'React 18',
-		description: 'Server and Client Components. Use hook.',
+		icon: IconNumber2,
+		title: 'Share content',
+		description: 'you can register content and share tips ',
 	},
 	{
-		icon: IconBrandPlanetscale,
-		title: 'Database',
-		description: 'ORM using Prisma and deployed on PlanetScale.',
-	},
-	{
-		icon: IconBrandMantine,
-		title: 'Components',
-		description: 'UI components built using Mantine UI.',
-	},
-	{
-		icon: IconBrandOauth,
-		title: 'Authentication',
-		description: 'Authentication using NextAuth.js and middlewares.',
+		icon: IconNumber3,
+		title: 'Organize training',
+		description:
+			'assemble a workout with positions and exercises to compose a traing and share it through the app',
 	},
 ];
 
@@ -57,12 +42,12 @@ export function Feature({ icon: Icon, title, description }: FeatureProps) {
 	return (
 		<Paper shadow="md" px="lg" py="sm" radius="md" withBorder>
 			<ThemeIcon variant="light" size={60} radius={60}>
-				<Icon size="2rem" stroke={1.5} />
+				<Icon size="2rem" stroke={1.5} color="#fff" />
 			</ThemeIcon>
-			<Text mt="sm" mb={7} fw="600">
+			<Text mt="sm" mb={7} fw="600" color={'#252B42'}>
 				{title}
 			</Text>
-			<Text size="sm" color="dimmed" sx={{ lineHeight: 1.6 }}>
+			<Text size="sm" sx={{ lineHeight: 1.6 }} color={'#535F79'}>
 				{description}
 			</Text>
 		</Paper>

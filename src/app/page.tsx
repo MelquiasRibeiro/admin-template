@@ -9,20 +9,22 @@ export default function Page() {
 	return (
 		<LandingContainer>
 			<Header
-				links={[
-					{
-						link: '/about',
-						label: 'Home',
-					},
-					{
-						link: '/learn',
-						label: 'Features',
-					},
-					{
-						link: '/pricing',
-						label: 'Pricing',
-					},
-				]}
+				links={
+					[
+						// {
+						// 	link: '/about',
+						// 	label: 'Home',
+						// },
+						// {
+						// 	link: '/learn',
+						// 	label: 'Features',
+						// },
+						// {
+						// 	link: '/pricing',
+						// 	label: 'Pricing',
+						// },
+					]
+				}
 			/>
 			<HeroSection />
 			<FeaturesSection

@@ -6,6 +6,9 @@ module.exports = async _phase => {
 	const nextConfig = {
 		reactStrictMode: true,
 		swcMinify: true,
+		images: {
+			disableStaticImages: true,
+		},
 	};
 
 	return withPlugins(

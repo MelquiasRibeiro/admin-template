@@ -24,12 +24,16 @@ const useStyles = createStyles(theme => ({
 		fontWeight: 900,
 		lineHeight: 1.05,
 		fontSize: rem(64),
+		color: '#121826',
 
 		[theme.fn.smallerThan('md')]: {
 			maxWidth: '100%',
 			fontSize: rem(34),
 			lineHeight: 1.15,
 		},
+	},
+	red: {
+		color: '#C41D17',
 	},
 
 	subtitle: {
@@ -38,6 +42,7 @@ const useStyles = createStyles(theme => ({
 		fontWeight: 800,
 		lineHeight: 1.05,
 		fontSize: rem(40),
+		color: '#252B42',
 
 		[theme.fn.smallerThan('md')]: {
 			maxWidth: '100%',
@@ -49,6 +54,7 @@ const useStyles = createStyles(theme => ({
 	description: {
 		opacity: 0.75,
 		maxWidth: rem(500),
+		color: '#535F79',
 
 		[theme.fn.smallerThan('md')]: {
 			maxWidth: '100%',
@@ -75,25 +81,25 @@ export function HeroSection() {
 		<Container pt="sm" size="lg">
 			<div className={classes.inner}>
 				<Title
-					variant="gradient"
-					gradient={{ from: 'indigo', to: 'cyan' }}
+					//variant="gradient"
+					//gradient={{ from: 'brand', to: 'red' }}
 					className={classes.title}
 				>
-					MantineAdmin
+					BJJ<span className={classes.red}>Partner</span>
 				</Title>
 				<Title className={classes.subtitle}>
-					A Next.js 13 Admin template build with Mantine UI
+					A platform to share content about Jiu-Jitsu
 				</Title>
 
 				<Text className={classes.description} mt={30}>
-					Build fully functional dashboard web applications with ease – Mantine-Admin
-					includes all components and hooks to cover you in any situation
+					A 100% collaborative platform with the aim of sharing content and techniques
+					related to gentle art
 				</Text>
 
 				<Group mt={40}>
 					<Button
 						variant="gradient"
-						gradient={{ from: 'indigo', to: 'cyan' }}
+						gradient={{ from: 'brand', to: 'red' }}
 						size="lg"
 						className={classes.control}
 						onClick={() => {
@@ -102,18 +108,6 @@ export function HeroSection() {
 						rightIcon={<IconArrowRight />}
 					>
 						Get started
-					</Button>
-					<Button
-						variant="outline"
-						size="lg"
-						className={classes.control}
-						onClick={() => {
-							// open github
-							window.open('https://github.com/jotyy/mantine-admin');
-						}}
-						rightIcon={<IconStar />}
-					>
-						Give a Star
 					</Button>
 				</Group>
 			</div>
