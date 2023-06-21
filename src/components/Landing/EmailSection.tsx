@@ -87,7 +87,7 @@ export function EmailSection() {
 					<Button className={classes.control}>Subscribe</Button>
 				</div>
 			</div>
-			<Image src="/static/images/img-email.svg" className={classes.image} alt="email" />
+			<Image src="/static/images/subscribre.svg" className={classes.image} alt="email" />
 		</div>
 	);
 }
