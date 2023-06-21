@@ -68,6 +68,7 @@ const useStyles = createStyles(theme => ({
 		fontWeight: 900,
 		lineHeight: 1.05,
 		fontSize: rem(64),
+		color: '#252B42',
 
 		[theme.fn.smallerThan('md')]: {
 			maxWidth: '100%',
@@ -78,6 +79,7 @@ const useStyles = createStyles(theme => ({
 
 	description: {
 		textAlign: 'center',
+		color: '#535F79',
 
 		[theme.fn.smallerThan('sm')]: {
 			textAlign: 'left',

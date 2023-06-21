@@ -7,7 +7,7 @@ module.exports = async _phase => {
 		reactStrictMode: true,
 		swcMinify: true,
 		images: {
-			disableStaticImages: true,
+			path: '/assets',
 		},
 	};
 

@@ -119,7 +119,7 @@ export function Header({ links }: HeaderActionProps) {
 				<Group spacing={5} className={classes.links}>
 					{items}
 				</Group>
-				<Button radius="xl" h={30}>
+				<Button radius="xl" h={30} bg={'#C41D17'}>
 					Login
 				</Button>
 			</Container>

@@ -1,7 +1,7 @@
 'use client';
 
 import { Button, Container, Group, Text, Title, createStyles, rem } from '@mantine/core';
-import { IconArrowRight, IconStar } from '@tabler/icons-react';
+import { IconArrowRight } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
 
 const useStyles = createStyles(theme => ({
@@ -98,8 +98,9 @@ export function HeroSection() {
 
 				<Group mt={40}>
 					<Button
-						variant="gradient"
-						gradient={{ from: 'brand', to: 'red' }}
+						//variant="gradient"
+						//gradient={{ from: 'brand', to: 'red' }}
+						bg={'#C41D17'}
 						size="lg"
 						className={classes.control}
 						onClick={() => {
