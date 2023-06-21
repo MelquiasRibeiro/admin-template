@@ -49,7 +49,7 @@ export function Footer() {
 		<div className={classes.footer}>
 			<Container className={classes.inner}>
 				<Text color="dimmed" fz="sm">
-					Build by <Anchor href="https://github.com/jotyy">jotyy</Anchor>. Hosted on{' '}
+					Build by <Anchor href="https://github.com/jotyy">devApe</Anchor>. Hosted on{' '}
 					<Anchor href="https://vercel.com">Vercel</Anchor>.
 				</Text>
 				<Group spacing={0} className={classes.links} position="right" noWrap>
