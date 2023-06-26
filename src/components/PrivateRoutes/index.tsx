@@ -1,18 +1,18 @@
-import React, { ReactNode, use, useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { ROUTES } from '../../constants/routes';
 import { useRouter } from 'next/navigation';
 import { isUserAuthenticated } from '../../utils/checkUserAuth';
 import firebase_app from '@/config/firebase';
-import { getAuth } from 'firebase/auth';
+import { getAuth, User } from 'firebase/auth';
 
 type PrivateRoutesProps = {
 	children: ReactNode;
 };
 
-const PrivateRoutes: React.FC = ({ children }: PrivateRoutesProps) => {
+const PrivateRoutes = ({ children }: PrivateRoutesProps) => {
 	const { push } = useRouter();
 
-	const [user, setUser] = useState(null);
+	const [user, setUser] = useState<User | null>(null);
 	const auth = getAuth(firebase_app);
 
 	useEffect(() => {

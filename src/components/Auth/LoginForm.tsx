@@ -10,11 +10,9 @@ import {
 	Button,
 } from '@mantine/core';
 import { useAuth } from '../../hooks/auth';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export function LoginForm() {
-	const router = useRouter();
 	const { authLoading, signIn } = useAuth();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');

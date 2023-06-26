@@ -45,7 +45,7 @@ export const SimpleForm = () => {
 	return (
 		<>
 			<Paper withBorder shadow="md" p="md" w="700px">
-				<Box<'REGISTER TECHNIQUE'>>
+				<Box<'REGISTER TECHNIQUE'> component={'symbol'}>
 					<Text<'h2'> component="h2" fw="bold" fz="lg">
 						REGISTER TECHNIQUE
 					</Text>
