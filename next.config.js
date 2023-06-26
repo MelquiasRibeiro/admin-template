@@ -8,6 +8,15 @@ module.exports = async _phase => {
 		swcMinify: true,
 		images: {
 			path: '/assets',
+			domains: ['i.ytimg.com'],
+			remotePatterns: [
+				{
+					protocol: 'https',
+					hostname: '**',
+					port: '3000',
+					pathname: '**',
+				},
+			],
 		},
 	};
 

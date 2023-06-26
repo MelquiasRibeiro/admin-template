@@ -11,13 +11,13 @@ import { WelcomeCard } from './WelcomeCard';
 export function DashboardContent() {
 	return (
 		<Grid>
-			<Grid.Col span={4}>
+			{/* <Grid.Col span={4}>
 				<ProfileCard />
-			</Grid.Col>
-			<Grid.Col span={8}>
+			</Grid.Col> */}
+			<Grid.Col span={12}>
 				<Flex direction="column" h="100%" justify="space-between">
-					<WelcomeCard />
 					<StatsGroup data={mockData} />
+					{/* <WelcomeCard /> */}
 				</Flex>
 			</Grid.Col>
 			<Grid.Col span={8}>

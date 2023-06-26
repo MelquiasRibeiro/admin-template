@@ -1,42 +1,27 @@
 import { AppProvider } from './provider';
 
 export const metadata = {
-	metadataBase: new URL('https://mantine-admin.vercel.app/'),
-	title: { default: 'Mantine Admin', template: '%s | Mantine Admin' },
-	description: 'A Modern Admin template build with Next.js 13/MantineUI',
-	keywords: [
-		'Next.js',
-		'Mantine',
-		'Admin',
-		'Template',
-		'Admin Template',
-		'Admin Dashboard',
-		'Admin Panel',
-		'Admin UI',
-	],
+	metadataBase: new URL('https://bjjpartner.devape.com.br/'),
+	title: { default: 'Bjjpartner', template: '%s | Mantine Admin' },
+	description: 'A plataform to share content aboout jiu-jitsu',
+	keywords: ['Jiu-jitsu', 'Bjj', 'Fight', 'Martial arts', 'sport'],
 	authors: [
 		{
-			name: 'jotyy',
-			url: 'https://jotyy.vercel.app',
+			name: 'Melquias',
+			url: 'https://www.linkedin.com/in/melquias-ribeiro-a10639182/',
 		},
 	],
-	creator: 'jotyy',
+	creator: 'Melquias',
 	openGraph: {
 		type: 'website',
-		locale: 'en_US',
-		url: 'https://mantine-admin.vercel.app',
-		site_name: 'Mantine Admin',
-		description: 'A Modern Admin template build with Next.js 13/MantineUI',
-		siteName: 'Mantine Admin',
+		locale: 'pt_BR',
+		url: 'https://bjjpartner.devape.com.br/',
+		site_name: 'Bjjpartner',
+		description: 'A plataform to share content aboout jiu-jisu',
+		siteName: 'Bjjpartner',
 		images: '/static/images/banner.png',
 	},
-	twitter: {
-		card: 'summary_large_image',
-		title: 'Mantine Admin',
-		description: 'A Modern Admin template build with Next.js 13/MantineUI',
-		images: ['https://mantine-admin.vercel.app/static/images/banner.png'],
-		creator: '@jotyy3',
-	},
+
 	manifest: 'https://mantine-admin.vercel.app/site.webmanifest',
 };
 

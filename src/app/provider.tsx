@@ -10,10 +10,15 @@ import {
 import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-// import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useConfigStore } from '@/stores/config';
 import rtlPlugin from 'stylis-plugin-rtl';
 import RootStyleRegistry from './emotion';
+import { checkIfRouteIsPublic } from '@/utils/isPublicRoute';
+import { usePathname } from 'next/navigation';
+import PrivateRoutes from '@/components/PrivateRoutes';
+import { useEffect, useState } from 'react';
+import { getAuth } from 'firebase/auth';
+import firebase_app from '@/config/firebase';
 
 const queryClient = new QueryClient();
 
@@ -28,7 +33,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
 	const toggleColorScheme = (value?: ColorScheme) =>
 		setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
-
+	const pathName = usePathname();
+	const isPublicPage = checkIfRouteIsPublic(pathName);
 	return (
 		<QueryClientProvider client={queryClient}>
 			<RootStyleRegistry>
@@ -42,7 +48,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 						emotionCache={direction === 'rtl' ? rtlCache : undefined}
 						theme={{ ...theme, colorScheme, dir: direction }}
 					>
-						<ModalsProvider>{children}</ModalsProvider>
+						<ModalsProvider>
+							{isPublicPage && children}
+							{!isPublicPage && <PrivateRoutes>{children}</PrivateRoutes>}
+						</ModalsProvider>
 						<Notifications />
 					</MantineProvider>
 				</ColorSchemeProvider>
