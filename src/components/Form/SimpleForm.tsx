@@ -74,18 +74,22 @@ export const SimpleForm = () => {
 						//{...register('url')}
 					/>
 					<Space h="sm" />
-
+					<Paper withBorder shadow="md" p="md" w="300px">
+						<Text<'h2'> component="h2" fw="bold" fz="lg">
+							Thumb
+						</Text>
+						<img
+							src={videoThumbnail}
+							width={200}
+							height={200}
+							alt="Picture of the author"
+						/>
+					</Paper>
 					<Space h="md" />
 					<Button onClick={() => getYouTubeThumbnail('https://youtu.be/P1WqOM5RBUo')}>
 						Register
 					</Button>
 				</Box>
-			</Paper>
-			<Paper withBorder shadow="md" p="md" w="300px">
-				<Text<'h2'> component="h2" fw="bold" fz="lg">
-					Thumb
-				</Text>
-				<img src={videoThumbnail} width={200} height={200} alt="Picture of the author" />
 			</Paper>
 		</>
 	);

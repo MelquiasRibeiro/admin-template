@@ -1,5 +1,5 @@
 'use client';
-
+import React from 'react';
 import { theme } from '@/styles/theme';
 import {
 	ColorScheme,
@@ -16,9 +16,11 @@ import RootStyleRegistry from './emotion';
 import { checkIfRouteIsPublic } from '@/utils/isPublicRoute';
 import { usePathname } from 'next/navigation';
 import PrivateRoutes from '@/components/PrivateRoutes';
-import { useEffect, useState } from 'react';
-import { getAuth } from 'firebase/auth';
-import firebase_app from '@/config/firebase';
+import { AuthProvider } from '../providers/auth';
+
+type AppProviderProps = {
+	children: React.ReactNode;
+};
 
 const queryClient = new QueryClient();
 
@@ -28,13 +30,13 @@ const rtlCache = createEmotionCache({
 	stylisPlugins: [rtlPlugin],
 });
 
-export function AppProvider({ children }: { children: React.ReactNode }) {
+export function AppProvider({ children }: AppProviderProps) {
 	const { colorScheme, direction, setColorScheme } = useConfigStore();
-
 	const toggleColorScheme = (value?: ColorScheme) =>
 		setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
 	const pathName = usePathname();
 	const isPublicPage = checkIfRouteIsPublic(pathName);
+
 	return (
 		<QueryClientProvider client={queryClient}>
 			<RootStyleRegistry>
@@ -49,8 +51,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 						theme={{ ...theme, colorScheme, dir: direction }}
 					>
 						<ModalsProvider>
-							{isPublicPage && children}
-							{!isPublicPage && <PrivateRoutes>{children}</PrivateRoutes>}
+							<AuthProvider>
+								{isPublicPage && children}
+								{!isPublicPage && <PrivateRoutes>{children}</PrivateRoutes>}
+							</AuthProvider>
 						</ModalsProvider>
 						<Notifications />
 					</MantineProvider>

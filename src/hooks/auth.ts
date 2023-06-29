@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useContext, useReducer } from 'react';
 import firebase_app from '../config/firebase';
 import { ROUTES } from '../constants/routes';
 import {
@@ -46,12 +46,14 @@ function reducer(state: any, action: any): any {
 export function useAuth() {
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const router = useRouter();
-
 	const signIn = async (email: string, password: string) => {
 		dispatch({ type: types.FETCHING });
 		try {
 			const user = await signInWithEmailAndPassword(auth, email, password);
-			console.log(user);
+
+			const token = user.user.refreshToken;
+			const name = user.user.displayName;
+
 			dispatch({ type: types.SUCCESS });
 			router.push(ROUTES.private.dashboard.name);
 		} catch (error) {

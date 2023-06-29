@@ -1,39 +1,28 @@
-import React, { ReactNode, useEffect, useState } from 'react';
-import { ROUTES } from '../../constants/routes';
+import React from 'react';
+import { useContext } from 'react';
 import { useRouter } from 'next/navigation';
-import { isUserAuthenticated } from '../../utils/checkUserAuth';
-import firebase_app from '@/config/firebase';
-import { getAuth, User } from 'firebase/auth';
+import { AuthContext } from '../../providers/auth';
+import { ROUTES } from '@/constants/routes';
 
-type PrivateRoutesProps = {
-	children: ReactNode;
+type PrivateRouteProps = {
+	children: React.ReactNode;
 };
 
-const PrivateRoutes = ({ children }: PrivateRoutesProps) => {
-	const { push } = useRouter();
+const PrivateRoute: React.FC = ({ children }: PrivateRouteProps) => {
+	const { user, loading } = useContext(AuthContext);
+	const router = useRouter();
 
-	const [user, setUser] = useState<User | null>(null);
-	const auth = getAuth(firebase_app);
+	console.log('user', user);
+	if (loading) {
+		return <p>Carregando...</p>;
+	}
 
-	useEffect(() => {
-		const unsubscribe = auth.onAuthStateChanged(_user => {
-			setUser(_user);
-		});
-		return unsubscribe;
-	}, [auth]);
+	if (!user) {
+		router.push(ROUTES.public.login.name);
+		return null;
+	}
 
-	useEffect(() => {
-		if (!isUserAuthenticated) {
-			push(ROUTES.public.login.name);
-		}
-	}, [user, push]);
-
-	return (
-		<>
-			{!user && null}
-			{user && children}
-		</>
-	);
+	return <>{children}</>;
 };
 
-export default PrivateRoutes;
+export default PrivateRoute;
