@@ -13,6 +13,7 @@ import { useAuth } from '../../hooks/auth';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '@/providers/auth';
 import { useRouter } from 'next/navigation';
+import { ROUTES } from '@/constants/routes';
 
 export function LoginForm() {
 	const { authLoading, signIn } = useAuth();
@@ -25,7 +26,7 @@ export function LoginForm() {
 	useEffect(() => {
 		if (user) {
 			alert('Voce já esta logado');
-			router.push('/dashboard'); // Redireciona para o dashboard se o usuário estiver logado
+			router.push(ROUTES.private.dashboard.name); // Redireciona para o dashboard se o usuário estiver logado
 		}
 	}, [user, router]);
 

@@ -15,6 +15,8 @@ import {
 import { Logo } from '@/components/Logo/Logo';
 import { useDisclosure } from '@mantine/hooks';
 import { IconChevronDown } from '@tabler/icons-react';
+import { useRouter } from 'next/navigation';
+import { ROUTES } from '@/constants/routes';
 
 const HEADER_HEIGHT = rem(60);
 
@@ -66,6 +68,10 @@ interface HeaderActionProps {
 
 export function Header({ links }: HeaderActionProps) {
 	const { classes } = useStyles();
+	const router = useRouter();
+	const handleNavigateToLogin = () => {
+		router.push(ROUTES.public.login.name); // Redireciona para o dashboard se o usuário estiver logado
+	};
 	const [opened, { toggle }] = useDisclosure(false);
 	const items = links.map(link => {
 		const menuItems = link.links?.map(item => (
@@ -119,7 +125,7 @@ export function Header({ links }: HeaderActionProps) {
 				<Group spacing={5} className={classes.links}>
 					{items}
 				</Group>
-				<Button radius="xl" h={30} bg={'#C41D17'}>
+				<Button radius="xl" h={30} bg={'#C41D17'} onClick={handleNavigateToLogin}>
 					Login
 				</Button>
 			</Container>

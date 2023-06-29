@@ -1,5 +1,6 @@
 'use client';
 
+import { ROUTES } from '@/constants/routes';
 import { Button, Container, Group, Text, Title, createStyles, rem } from '@mantine/core';
 import { IconArrowRight } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
@@ -104,7 +105,7 @@ export function HeroSection() {
 						size="lg"
 						className={classes.control}
 						onClick={() => {
-							router.push('/dashboard');
+							router.push(ROUTES.public.register.name);
 						}}
 						rightIcon={<IconArrowRight />}
 					>
