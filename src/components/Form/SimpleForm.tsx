@@ -55,13 +55,6 @@ export const SimpleForm = () => {
 		}
 	};
 
-	// const onSubmit = (data: User) =>
-	// 	modals.openConfirmModal({
-	// 		title: 'Register successfully',
-	// 		children: <Text size="sm">{data.name}</Text>,
-	// 		labels: { confirm: 'Confirm', cancel: 'Cancel' },
-	// 		onConfirm: () => console.log('Confirmed'),
-	// 	});
 	const onSubmit = data => {
 		const dataToSend = {
 			name: data.title,
