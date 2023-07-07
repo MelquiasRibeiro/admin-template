@@ -25,10 +25,7 @@ const AuthProvider: React.FC = ({ children }: AuthProviderProps) => {
 	console.error('fora do useeffect');
 
 	useEffect(() => {
-		console.error('no useeffect');
-
 		const unsubscribe = auth.onAuthStateChanged(authUser => {
-			console.error('no  useeffect  e na funcao');
 			setUser(authUser);
 			setLoading(false);
 		});
