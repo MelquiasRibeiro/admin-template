@@ -5,7 +5,7 @@ import { Space } from '@mantine/core';
 
 export default function TablePage() {
 	return (
-		<PageContainer title="Tables">
+		<PageContainer title="Register Category">
 			<SimpleTable />
 			<PaginationTable />
 		</PageContainer>

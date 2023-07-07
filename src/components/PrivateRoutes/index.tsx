@@ -5,7 +5,7 @@ import { AuthContext } from '../../providers/auth';
 import { ROUTES } from '@/constants/routes';
 
 type PrivateRouteProps = {
-	children: React.ReactNode;
+	children: any;
 };
 
 const PrivateRoute: React.FC = ({ children }: PrivateRouteProps) => {

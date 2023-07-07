@@ -7,47 +7,47 @@ import {
 } from '@tabler/icons-react';
 
 export const navLinks: NavItem[] = [
-	{ label: 'Dashboard', icon: IconDashboard, link: '/dashboard' },
+	// { label: 'Dashboard', icon: IconDashboard, link: '/dashboard' },
 
 	{
-		label: 'Components',
+		label: 'Records',
 		icon: IconComponents,
 		initiallyOpened: true,
 		links: [
 			{
-				label: 'Table',
-				link: '/dashboard/table',
+				label: 'Register category',
+				link: '/dashboard/category',
 			},
 			{
-				label: 'Form',
-				link: '/dashboard/form',
+				label: 'Register Technique',
+				link: '/dashboard/technique',
 			},
 		],
 	},
-	{
-		label: 'Auth',
-		icon: IconLock,
-		initiallyOpened: true,
-		links: [
-			{
-				label: 'Login',
-				link: '/login',
-			},
-			{
-				label: 'Register',
-				link: '/register',
-			},
-		],
-	},
-	{
-		label: 'Sample',
-		icon: IconMoodSmile,
-		initiallyOpened: true,
-		links: [
-			{
-				label: 'Landing',
-				link: '/',
-			},
-		],
-	},
+	// {
+	// 	label: 'Auth',
+	// 	icon: IconLock,
+	// 	initiallyOpened: true,
+	// 	links: [
+	// 		{
+	// 			label: 'Login',
+	// 			link: '/login',
+	// 		},
+	// 		{
+	// 			label: 'Register',
+	// 			link: '/register',
+	// 		},
+	// 	],
+	// },
+	// {
+	// 	label: 'Sample',
+	// 	icon: IconMoodSmile,
+	// 	initiallyOpened: true,
+	// 	links: [
+	// 		{
+	// 			label: 'Landing',
+	// 			link: '/',
+	// 		},
+	// 	],
+	// },
 ];

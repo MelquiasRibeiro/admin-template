@@ -1,5 +1,6 @@
 import { useContext, useReducer } from 'react';
 import firebase_app from '../config/firebase';
+
 import { ROUTES } from '../constants/routes';
 import {
 	signInWithEmailAndPassword,
@@ -50,9 +51,6 @@ export function useAuth() {
 		dispatch({ type: types.FETCHING });
 		try {
 			const user = await signInWithEmailAndPassword(auth, email, password);
-
-			const token = user.user.refreshToken;
-			const name = user.user.displayName;
 
 			dispatch({ type: types.SUCCESS });
 			router.push(ROUTES.private.dashboard.name);

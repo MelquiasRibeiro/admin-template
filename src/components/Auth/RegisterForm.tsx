@@ -1,6 +1,6 @@
 'use client';
 
-import { useAuth } from '@/hooks/auth';
+import { useAuth } from '@/hooks/useAuth';
 import { Paper, TextInput, PasswordInput, Space, Button } from '@mantine/core';
 import { useState } from 'react';
 

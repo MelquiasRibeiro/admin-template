@@ -128,7 +128,7 @@ export function NavLinksGroup({
 					<Group position="apart" spacing={0}>
 						<Box sx={{ display: 'flex', alignItems: 'center' }}>
 							<ThemeIcon variant="light" size={30}>
-								<Icon size="1.1rem" />
+								<Icon size="1.1rem" color="#FFF" />
 							</ThemeIcon>
 							<Box ml="md">{label}</Box>
 						</Box>

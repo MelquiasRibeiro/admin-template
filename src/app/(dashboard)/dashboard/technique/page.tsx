@@ -3,7 +3,7 @@ import { PageContainer } from '@/components/PageContainer/PageContainer';
 
 export default function Form() {
 	return (
-		<PageContainer title="Forms">
+		<PageContainer title="Register technique">
 			<SimpleForm />
 		</PageContainer>
 	);

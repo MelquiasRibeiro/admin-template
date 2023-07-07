@@ -19,7 +19,7 @@ import PrivateRoutes from '@/components/PrivateRoutes';
 import { AuthProvider } from '../providers/auth';
 
 type AppProviderProps = {
-	children: React.ReactNode;
+	children: any;
 };
 
 const queryClient = new QueryClient();
@@ -51,10 +51,17 @@ export function AppProvider({ children }: AppProviderProps) {
 						theme={{ ...theme, colorScheme, dir: direction }}
 					>
 						<ModalsProvider>
-							<AuthProvider>
-								{isPublicPage && children}
-								{!isPublicPage && <PrivateRoutes>{children}</PrivateRoutes>}
-							</AuthProvider>
+							{
+								//@ts-ignore
+
+								<AuthProvider>
+									{isPublicPage && children}
+									{
+										//@ts-ignore
+										!isPublicPage && <PrivateRoutes>{children}</PrivateRoutes>
+									}
+								</AuthProvider>
+							}
 						</ModalsProvider>
 						<Notifications />
 					</MantineProvider>

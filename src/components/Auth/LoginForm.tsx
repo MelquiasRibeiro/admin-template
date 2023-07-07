@@ -9,7 +9,7 @@ import {
 	Anchor,
 	Button,
 } from '@mantine/core';
-import { useAuth } from '../../hooks/auth';
+import { useAuth } from '../../hooks/useAuth';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '@/providers/auth';
 import { useRouter } from 'next/navigation';
