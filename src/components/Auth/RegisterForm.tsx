@@ -8,13 +8,27 @@ export function RegisterForm() {
 	const { authLoading, signUp } = useAuth();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-
+	const [name, setName] = useState('');
+	const [phone, setPhone] = useState('');
 	const handleRegister = () => {
-		signUp(email, password);
+		const userInfo = { name, phone };
+		signUp(email, password, userInfo);
 	};
 
 	return (
 		<Paper withBorder shadow="md" p={30} mt={30} radius="md">
+			<TextInput
+				label="Name"
+				placeholder="My Name "
+				required
+				onChange={e => setName(e.target.value)}
+			/>
+			<TextInput
+				label="Phone"
+				placeholder="+55(98)98187-7537"
+				required
+				onChange={e => setPhone(e.target.value)}
+			/>
 			<TextInput
 				label="Email"
 				placeholder="test@example.com"

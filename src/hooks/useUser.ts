@@ -1,9 +1,11 @@
 import { useReducer } from 'react';
 import firebase_app from '../config/firebase';
 import { getAuth, updateProfile, UserInfo } from 'firebase/auth';
+import { getFirestore, doc } from 'firebase/firestore';
 
 const auth = getAuth(firebase_app);
 const user = auth.currentUser;
+const firestore = getFirestore(firebase_app);
 
 const types = {
 	FETCHING: 'FETCHING',
@@ -56,8 +58,18 @@ export function useUser() {
 		}
 	};
 
+	function getUserRef() {
+		if (user) {
+			const userRef = doc(firestore, 'users', user.uid);
+			return userRef;
+		}
+
+		return null;
+	}
+
 	return {
 		updateUserInfo,
+		getUserRef,
 		userError: state.error,
 		userLoading: state.loading,
 	};

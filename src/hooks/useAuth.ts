@@ -7,9 +7,10 @@ import {
 	createUserWithEmailAndPassword,
 	signOut,
 	getAuth,
+	UserInfo,
 } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
-
+import { useUser } from './useUser';
 const auth = getAuth(firebase_app);
 
 const types = {
@@ -47,6 +48,8 @@ function reducer(state: any, action: any): any {
 export function useAuth() {
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const router = useRouter();
+	const { updateUserInfo } = useUser();
+
 	const signIn = async (email: string, password: string) => {
 		dispatch({ type: types.FETCHING });
 		try {
@@ -60,10 +63,12 @@ export function useAuth() {
 		}
 	};
 
-	const signUp = async (email: string, password: string) => {
+	const signUp = async (email: string, password: string, userInfo) => {
 		dispatch({ type: types.FETCHING });
 		try {
 			const newUser = await createUserWithEmailAndPassword(auth, email, password);
+
+			await updateUserInfo(userInfo);
 
 			console.log(newUser);
 

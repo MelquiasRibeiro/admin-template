@@ -1,6 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
 import {
 	Box,
 	Button,
@@ -11,30 +11,24 @@ import {
 	MultiSelect,
 	Textarea,
 } from '@mantine/core';
-import { modals } from '@mantine/modals';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 import { useGetVideoThumb } from '../../hooks/useGetVideoThumb';
 import { useCategories } from '../../hooks/useCategories';
+import { useUser } from '../../hooks/useUser';
 import { useEffect, useState } from 'react';
 import { verifyYouTubeUrl } from '@/utils/verifyYouTubeUrl';
-const schema = z.object({
-	name: z.string().min(1, { message: 'please, provide a name to register a thechnique' }),
-	thumb: z.string().email('Email is not valid'),
-	category: z.string().min(1, { message: 'please type a valid category' }),
-	description: z.string().min(1, { message: 'please type a valid description' }),
-	tip: z.string().min(1, { message: 'please type a valid tip' }),
-	url: z.string().min(1, { message: 'please type a valid video URL' }),
-});
+import { useTechniques } from '../../hooks/useTechnique';
 
-type User = z.infer<typeof schema>;
-
-export const SimpleForm = () => {
+export const TechniqueForm = () => {
 	const { getYouTubeThumbnail, videoThumbnail } = useGetVideoThumb();
 	const { getAllCategories } = useCategories();
+	const { storeTechnique } = useTechniques();
+	const { getUserRef } = useUser();
+
 	const [categoreis, setCategories] = useState<any>([]);
 	const [selectedCategoreis, setSelectedCategories] = useState<string[] | []>([]);
 	const [videoUrl, setVideoUrl] = useState('');
+
 	useEffect(() => {
 		async function getCategories() {
 			const _categories = await getAllCategories();
@@ -55,18 +49,22 @@ export const SimpleForm = () => {
 		}
 	};
 
-	const onSubmit = data => {
+	const onSubmit = async data => {
+		const userReference = getUserRef();
 		const dataToSend = {
+			created_by: userReference,
 			name: data.title,
 			thumb: videoThumbnail,
 			details: {
 				description: data.description,
 				videoLink: videoUrl,
+				tips: [],
+				topFightersUsers: [],
 			},
 			categoreis: selectedCategoreis,
 		};
 
-		console.log(dataToSend);
+		await storeTechnique(dataToSend);
 	};
 
 	return (
@@ -76,24 +74,12 @@ export const SimpleForm = () => {
 					<Text<'h2'> component="h2" fw="bold" fz="lg">
 						REGISTER TECHNIQUE
 					</Text>
-					<TextInput
-						label="Url"
-						onChange={e => onUrlChange(e.target.value)}
-						//{...register('url')}
-					/>
+					<TextInput label="Url" onChange={e => onUrlChange(e.target.value)} />
 					<Space h="sm" />
 					<TextInput label="Title" {...register('title')} />
 					<Space h="sm" />
 					<Textarea label="Description" {...register('description')} />
 					<Space h="sm" />
-					{/* <TextInput
-						label="Tip"
-						error={errors.tip && errors.tip.message}
-						{...register('tip')}
-					/>
-
-					<Space h="sm" /> */}
-
 					<MultiSelect
 						data={categoreis}
 						label="Categories"

@@ -1,7 +1,6 @@
-import { useEffect, useReducer } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import { useReducer } from 'react';
+import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore';
 //import { showErrorToast } from '../utils/toast';
-import { getFirestore } from 'firebase/firestore';
 import firebase_app from '../config/firebase';
 
 const types = {
@@ -43,10 +42,6 @@ export function useCategories() {
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const firestore = getFirestore(firebase_app);
 
-	// useEffect(() => {
-	// 	getAllCategories();
-	// }, []);
-
 	async function getAllCategories() {
 		try {
 			const categoriesRef = collection(firestore, 'categories');
@@ -66,8 +61,22 @@ export function useCategories() {
 			return [];
 		}
 	}
+
+	async function storeCategory(category) {
+		try {
+			const categoriesRef = collection(firestore, 'categories');
+			const newDocRef = await addDoc(categoriesRef, category);
+
+			console.log('Novo documento criado com ID:', newDocRef.id);
+			return newDocRef.id;
+		} catch (error) {
+			console.error('Erro ao criar a categoria:', error);
+			return null;
+		}
+	}
 	return {
 		getAllCategories,
+		storeCategory,
 		categories: state.categories,
 		categoriesError: state.error,
 		categoriesLoading: state.loading,

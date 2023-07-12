@@ -1,5 +1,5 @@
 import { useReducer } from 'react';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 import { getFirestore } from 'firebase/firestore';
 import firebase_app from '../config/firebase';
 
@@ -80,9 +80,22 @@ export function useTechniques() {
 			return [];
 		}
 	}
+	async function storeTechnique(technique) {
+		try {
+			const TechniquesRef = collection(firestore, 'techniques');
+			const newDocRef = await addDoc(TechniquesRef, technique);
+
+			console.log('Novo documento criado com ID:', newDocRef.id);
+			return newDocRef.id;
+		} catch (error) {
+			console.error('Erro ao criar a técquinica:', error);
+			return null;
+		}
+	}
 	return {
 		getAllTechniques,
 		searchTechniqueByUrl,
+		storeTechnique,
 		techniquesError: state.error,
 		techniquesLoading: state.loading,
 	};
