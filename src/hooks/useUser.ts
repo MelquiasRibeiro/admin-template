@@ -95,8 +95,7 @@ export function useUser() {
 			const userRef = doc(firestore, 'users', user.uid);
 			const userSnapshot = await getDoc(userRef);
 			const userData = userSnapshot.data();
-			console.log('userData:', userData);
-			return userData;
+			return userRef;
 		}
 
 		return null;

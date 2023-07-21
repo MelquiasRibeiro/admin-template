@@ -23,7 +23,7 @@ export const TechniqueForm = () => {
 	const { getYouTubeThumbnail, videoThumbnail } = useGetVideoThumb();
 	const { getAllCategories } = useCategories();
 	const { storeTechnique } = useTechniques();
-	const { getUserRef } = useUser();
+	const { getUserData } = useUser();
 
 	const [categoreis, setCategories] = useState<any>([]);
 	const [selectedCategoreis, setSelectedCategories] = useState<string[] | []>([]);
@@ -50,7 +50,8 @@ export const TechniqueForm = () => {
 	};
 
 	const onSubmit = async data => {
-		const userReference = getUserRef();
+		const userReference = await getUserData();
+
 		const dataToSend = {
 			created_by: userReference,
 			name: data.title,
