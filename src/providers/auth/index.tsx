@@ -33,10 +33,13 @@ const AuthProvider: React.FC = ({ children }: AuthProviderProps) => {
 	useEffect(() => {
 		const unsubscribe = auth.onAuthStateChanged(async authUser => {
 			setUser(authUser);
-			const userRef = doc(firestore, 'users', authUser!.uid);
-			const userSnapshot = await getDoc(userRef);
-			const userData = userSnapshot.data();
-			setUserData(userData);
+			if (authUser?.uid) {
+				const userRef = doc(firestore, 'users', authUser.uid);
+				const userSnapshot = await getDoc(userRef);
+				const userData = userSnapshot.data();
+				setUserData(userData);
+			}
+
 			setLoading(false);
 		});
 		return unsubscribe;

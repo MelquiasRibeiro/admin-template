@@ -23,8 +23,7 @@ export default function AuthLayout({ children }: Props) {
 
 	useEffect(() => {
 		if (user) {
-			alert('Voce já esta logado');
-			router.push(ROUTES.private.dashboard.name); // Redireciona para o dashboard se o usuário estiver logado
+			router.push(ROUTES.private.dashboard.name);
 		}
 	}, [user, router]);
 
