@@ -3,17 +3,34 @@
 import { ROUTES } from '@/constants/routes';
 import { Anchor, Center, Container, Text, Title } from '@mantine/core';
 import { usePathname } from 'next/navigation';
-
+import { useContext, useEffect } from 'react';
+import { AuthContext } from '@/providers/auth';
+import { useRouter } from 'next/navigation';
+import Loading from '@/components/Loading';
 interface Props {
 	children: React.ReactNode;
 }
 
 export default function AuthLayout({ children }: Props) {
 	const pathName = usePathname();
+	const { user, loading } = useContext(AuthContext);
+	const router = useRouter();
+
 	const isLoginRoute = pathName === ROUTES.public.login.name;
 	const routeToNavegate = isLoginRoute
 		? ROUTES.public.register.name
 		: ROUTES.public.login.name;
+
+	useEffect(() => {
+		if (user) {
+			alert('Voce já esta logado');
+			router.push(ROUTES.private.dashboard.name); // Redireciona para o dashboard se o usuário estiver logado
+		}
+	}, [user, router]);
+
+	if (loading || user) {
+		return <Loading />;
+	}
 
 	return (
 		<Center

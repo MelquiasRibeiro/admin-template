@@ -12,7 +12,6 @@ const PrivateRoute: React.FC = ({ children }: PrivateRouteProps) => {
 	const { user, loading } = useContext(AuthContext);
 	const router = useRouter();
 
-	console.log('user', user);
 	if (loading) {
 		return <p>Carregando...</p>;
 	}

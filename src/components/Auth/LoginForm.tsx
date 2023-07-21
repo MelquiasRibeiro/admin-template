@@ -10,29 +10,12 @@ import {
 	Button,
 } from '@mantine/core';
 import { useAuth } from '../../hooks/useAuth';
-import { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '@/providers/auth';
-import { useRouter } from 'next/navigation';
-import { ROUTES } from '@/constants/routes';
+import { useState } from 'react';
 
 export function LoginForm() {
 	const { authLoading, signIn } = useAuth();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-
-	const { user, loading } = useContext(AuthContext);
-	const router = useRouter();
-
-	useEffect(() => {
-		if (user) {
-			alert('Voce já esta logado');
-			router.push(ROUTES.private.dashboard.name); // Redireciona para o dashboard se o usuário estiver logado
-		}
-	}, [user, router]);
-
-	if (loading) {
-		return <p>Carregando...</p>;
-	}
 
 	const handleLogin = () => {
 		signIn(email, password);

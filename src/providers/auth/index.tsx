@@ -1,9 +1,12 @@
 import { createContext, useState, useEffect } from 'react';
 import firebase_app from '../../config/firebase';
 import { User, getAuth } from 'firebase/auth';
+import { useUser } from '../../hooks/useUser';
+import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
 
 interface AuthContextProps {
 	user: User | null;
+	userData: any;
 	loading: boolean;
 }
 
@@ -12,6 +15,7 @@ const auth = getAuth(firebase_app);
 const AuthContext = createContext<AuthContextProps>({
 	user: null,
 	loading: true,
+	userData: null,
 });
 
 type AuthProviderProps = {
@@ -19,22 +23,29 @@ type AuthProviderProps = {
 };
 
 const AuthProvider: React.FC = ({ children }: AuthProviderProps) => {
-	console.log('auth', auth);
+	//const { getUserData } = useUser();
+
 	const [user, setUser] = useState<User | null>(null);
 	const [loading, setLoading] = useState(true);
-	console.error('fora do useeffect');
+	const [userData, setUserData] = useState<any>();
+	const firestore = getFirestore(firebase_app);
 
 	useEffect(() => {
-		const unsubscribe = auth.onAuthStateChanged(authUser => {
+		const unsubscribe = auth.onAuthStateChanged(async authUser => {
 			setUser(authUser);
+			const userRef = doc(firestore, 'users', authUser!.uid);
+			const userSnapshot = await getDoc(userRef);
+			const userData = userSnapshot.data();
+			setUserData(userData);
 			setLoading(false);
 		});
-
 		return unsubscribe;
 	}, []);
 
 	return (
-		<AuthContext.Provider value={{ user, loading }}>{children}</AuthContext.Provider>
+		<AuthContext.Provider value={{ user, userData, loading }}>
+			{children}
+		</AuthContext.Provider>
 	);
 };
 

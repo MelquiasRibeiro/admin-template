@@ -4,12 +4,16 @@ import {
 	ScrollArea,
 	createStyles,
 	rem,
+	Button,
 } from '@mantine/core';
+import { IconLogout } from '@tabler/icons-react';
 
-import { UserButton } from '@/components/UserButton/UserButton';
 import { NavItem } from '@/types/nav-item';
 import { Logo } from '../Logo/Logo';
 import { NavLinksGroup } from './NavLinksGroup';
+import { useAuth } from '@/hooks/useAuth';
+import { useRouter } from 'next/navigation';
+import { ROUTES } from '@/constants/routes';
 
 const useStyles = createStyles(theme => ({
 	navbar: {
@@ -33,6 +37,8 @@ const useStyles = createStyles(theme => ({
 			theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]
 		}`,
 		paddingTop: theme.spacing.md,
+		display: 'flex',
+		justifyContent: 'center',
 	},
 }));
 
@@ -44,6 +50,13 @@ interface Props {
 export function Navbar({ data, hidden }: Props) {
 	const { classes } = useStyles();
 	const links = data.map(item => <NavLinksGroup key={item.label} {...item} />);
+	const { logout } = useAuth();
+	const router = useRouter();
+
+	async function handleLogout() {
+		await logout();
+		router.push(ROUTES.public.login.name); // Redireciona para o dashboard se o usuário estiver logado
+	}
 
 	return (
 		<MantineNavbar
@@ -65,11 +78,14 @@ export function Navbar({ data, hidden }: Props) {
 			</MantineNavbar.Section>
 
 			<MantineNavbar.Section className={classes.footer}>
-				<UserButton
-					image="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80"
-					name="Harriette"
-					email="hspoon@outlook.com"
-				/>
+				<Button
+					rightIcon={<IconLogout size="0.9rem" />}
+					variant="subtle"
+					color="dark"
+					onClick={handleLogout}
+				>
+					Logout
+				</Button>
 			</MantineNavbar.Section>
 		</MantineNavbar>
 	);

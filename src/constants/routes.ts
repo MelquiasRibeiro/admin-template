@@ -3,6 +3,15 @@ export const ROUTES = {
 		dashboard: {
 			name: '/dashboard',
 		},
+		category: {
+			name: '/dashboard/category',
+		},
+		technique: {
+			name: '/dashboard/technique',
+		},
+		profile: {
+			name: '/dashboard/profile',
+		},
 	},
 	public: {
 		landing: {

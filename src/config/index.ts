@@ -1,53 +1,37 @@
 import { NavItem } from '@/types/nav-item';
-import {
-	IconComponents,
-	IconDashboard,
-	IconLock,
-	IconMoodSmile,
-} from '@tabler/icons-react';
+import { IconFileDescription, IconGraph, IconLockAccess } from '@tabler/icons-react';
 
 export const navLinks: NavItem[] = [
-	// { label: 'Dashboard', icon: IconDashboard, link: '/dashboard' },
-
+	{
+		label: 'Dashboard',
+		icon: IconGraph,
+		initiallyOpened: true,
+		links: [{ label: 'Your Results', link: '/dashboard' }],
+	},
 	{
 		label: 'Records',
-		icon: IconComponents,
+		icon: IconFileDescription,
+		initiallyOpened: true,
+		links: [
+			{
+				label: 'Register Technique',
+				link: '/dashboard/technique',
+			},
+			{
+				label: 'Register Training',
+				link: '/dashboard/training',
+			},
+		],
+	},
+	{
+		label: 'Admin',
+		icon: IconLockAccess,
 		initiallyOpened: true,
 		links: [
 			{
 				label: 'Register category',
 				link: '/dashboard/category',
 			},
-			{
-				label: 'Register Technique',
-				link: '/dashboard/technique',
-			},
 		],
 	},
-	// {
-	// 	label: 'Auth',
-	// 	icon: IconLock,
-	// 	initiallyOpened: true,
-	// 	links: [
-	// 		{
-	// 			label: 'Login',
-	// 			link: '/login',
-	// 		},
-	// 		{
-	// 			label: 'Register',
-	// 			link: '/register',
-	// 		},
-	// 	],
-	// },
-	// {
-	// 	label: 'Sample',
-	// 	icon: IconMoodSmile,
-	// 	initiallyOpened: true,
-	// 	links: [
-	// 		{
-	// 			label: 'Landing',
-	// 			link: '/',
-	// 		},
-	// 	],
-	// },
 ];

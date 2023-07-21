@@ -1,3 +1,4 @@
+import { ROUTES } from '@/constants/routes';
 import {
 	UnstyledButton,
 	UnstyledButtonProps,
@@ -6,19 +7,18 @@ import {
 	Text,
 	createStyles,
 } from '@mantine/core';
-import { IconChevronRight } from '@tabler/icons-react';
+import { useRouter } from 'next/navigation';
 
 const useStyles = createStyles(theme => ({
 	user: {
 		display: 'block',
-		width: '100%',
 		padding: theme.spacing.md,
 		color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
 
-		'&:hover': {
-			backgroundColor:
-				theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0],
-		},
+		// '&:hover': {
+		// 	backgroundColor:
+		// 		theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0],
+		// },
 	},
 }));
 
@@ -31,12 +31,17 @@ interface UserButtonProps extends UnstyledButtonProps {
 
 export function UserButton({ image, name, email, icon, ...others }: UserButtonProps) {
 	const { classes } = useStyles();
-
+	const router = useRouter();
+	function handleNavigateToProfile() {
+		router.push(ROUTES.private.profile.name); // Redireciona para o dashboard se o usuário estiver logado
+	}
 	return (
-		<UnstyledButton className={classes.user} {...others}>
+		<UnstyledButton
+			className={classes.user}
+			{...others}
+			onClick={handleNavigateToProfile}
+		>
 			<Group>
-				<Avatar src={image} radius="xl" />
-
 				<div style={{ flex: 1 }}>
 					<Text size="sm" weight={500}>
 						{name}
@@ -46,8 +51,7 @@ export function UserButton({ image, name, email, icon, ...others }: UserButtonPr
 						{email}
 					</Text>
 				</div>
-
-				{icon || <IconChevronRight size="0.9rem" stroke={1.5} />}
+				<Avatar src={image} radius="xl" />
 			</Group>
 		</UnstyledButton>
 	);

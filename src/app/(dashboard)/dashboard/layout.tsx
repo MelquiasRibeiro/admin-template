@@ -3,15 +3,19 @@
 import { AdminHeader } from '@/components/Headers/AdminHeader';
 import { Navbar } from '@/components/Navbar/Navbar';
 import { navLinks } from '@/config';
+import { AuthContext } from '@/providers/auth';
 import { AppShell, Burger, Container, Footer, MediaQuery, Text } from '@mantine/core';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 interface Props {
 	children: React.ReactNode;
 }
 
 export default function DashboardLayout({ children }: Props) {
+	const { userData } = useContext(AuthContext);
 	const [opened, setOpened] = useState(false);
+	const IsAdmin = userData.profileType.includes('ADMIN');
+	const routes = IsAdmin ? navLinks : navLinks.filter(objeto => objeto.label !== 'Admin');
 
 	return (
 		<AppShell
@@ -22,7 +26,7 @@ export default function DashboardLayout({ children }: Props) {
 						theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[1],
 				},
 			})}
-			navbar={<Navbar data={navLinks} hidden={!opened} />}
+			navbar={<Navbar data={routes} hidden={!opened} />}
 			navbarOffsetBreakpoint="sm"
 			header={
 				<AdminHeader
@@ -41,7 +45,7 @@ export default function DashboardLayout({ children }: Props) {
 			footer={
 				<Footer height={50} p="md">
 					<Text w="full" size="sm" align="center" color="gray">
-						CopyRight © 2023 Jotyy
+						BJJpartner © 2023 Devape
 					</Text>
 				</Footer>
 			}

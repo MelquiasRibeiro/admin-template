@@ -1,4 +1,4 @@
-import { useContext, useReducer } from 'react';
+import { useReducer } from 'react';
 import firebase_app from '../config/firebase';
 
 import { ROUTES } from '../constants/routes';
@@ -7,11 +7,14 @@ import {
 	createUserWithEmailAndPassword,
 	signOut,
 	getAuth,
-	UserInfo,
+	updateProfile,
 } from 'firebase/auth';
+import { getFirestore, doc, setDoc } from 'firebase/firestore';
+
 import { useRouter } from 'next/navigation';
 import { useUser } from './useUser';
 const auth = getAuth(firebase_app);
+const firestore = getFirestore(firebase_app);
 
 const types = {
 	FETCHING: 'FETCHING',
@@ -48,7 +51,6 @@ function reducer(state: any, action: any): any {
 export function useAuth() {
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const router = useRouter();
-	const { updateUserInfo } = useUser();
 
 	const signIn = async (email: string, password: string) => {
 		dispatch({ type: types.FETCHING });
@@ -63,14 +65,22 @@ export function useAuth() {
 		}
 	};
 
-	const signUp = async (email: string, password: string, userInfo) => {
+	const signUp = async userInfo => {
 		dispatch({ type: types.FETCHING });
 		try {
+			const { email, password, phone, name } = userInfo;
 			const newUser = await createUserWithEmailAndPassword(auth, email, password);
 
-			await updateUserInfo(userInfo);
+			const updateInfo = {
+				phoneNumber: phone,
+				displayName: name,
+			};
+			await updateProfile(newUser.user, updateInfo);
 
-			console.log(newUser);
+			const userRef = doc(firestore, 'users', newUser.user.uid);
+			await setDoc(userRef, {
+				profileType: ['CREATOR'],
+			});
 
 			dispatch({ type: types.SUCCESS });
 			router.push(ROUTES.private.dashboard.name);

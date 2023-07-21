@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useContext } from 'react';
 import { theme } from '@/styles/theme';
 import {
 	ColorScheme,
@@ -14,9 +14,10 @@ import { useConfigStore } from '@/stores/config';
 import rtlPlugin from 'stylis-plugin-rtl';
 import RootStyleRegistry from './emotion';
 import { checkIfRouteIsPublic } from '@/utils/isPublicRoute';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import PrivateRoutes from '@/components/PrivateRoutes';
-import { AuthProvider } from '../providers/auth';
+import { AuthContext, AuthProvider } from '../providers/auth';
+import { ROUTES } from '@/constants/routes';
 
 type AppProviderProps = {
 	children: any;
@@ -36,6 +37,8 @@ export function AppProvider({ children }: AppProviderProps) {
 		setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
 	const pathName = usePathname();
 	const isPublicPage = checkIfRouteIsPublic(pathName);
+	const { user, loading } = useContext(AuthContext);
+	const router = useRouter();
 
 	return (
 		<QueryClientProvider client={queryClient}>
@@ -53,7 +56,6 @@ export function AppProvider({ children }: AppProviderProps) {
 						<ModalsProvider>
 							{
 								//@ts-ignore
-
 								<AuthProvider>
 									{isPublicPage && children}
 									{

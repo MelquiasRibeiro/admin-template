@@ -63,7 +63,6 @@ export const TechniqueForm = () => {
 			},
 			categoreis: selectedCategoreis,
 		};
-
 		await storeTechnique(dataToSend);
 	};
 

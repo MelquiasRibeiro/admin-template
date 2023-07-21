@@ -1,11 +1,17 @@
-import { useReducer } from 'react';
+import { useContext, useReducer } from 'react';
 import firebase_app from '../config/firebase';
-import { getAuth, updateProfile, UserInfo } from 'firebase/auth';
-import { getFirestore, doc } from 'firebase/firestore';
+import { updateProfile, updatePhoneNumber, PhoneAuthProvider } from 'firebase/auth';
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
+import { AuthContext } from '@/providers/auth';
+import {
+	uploadBytes,
+	ref as storageRef,
+	getStorage,
+	getDownloadURL,
+} from 'firebase/storage';
 
-const auth = getAuth(firebase_app);
-const user = auth.currentUser;
 const firestore = getFirestore(firebase_app);
+const storage = getStorage();
 
 const types = {
 	FETCHING: 'FETCHING',
@@ -40,36 +46,65 @@ function reducer(state: any, action: any): any {
 }
 
 export function useUser() {
+	const { user } = useContext(AuthContext);
 	const [state, dispatch] = useReducer(reducer, initialState);
 
-	const updateUserInfo = async (newUserInfo: UserInfo) => {
-		try {
-			if (!user) {
-				console.log('Usuário não autenticado');
-				throw new Error('Usuário não autenticado');
+	async function updateProfileData(updatedUser): Promise<boolean> {
+		const { displayName, phoneNumber, team, photo } = updatedUser;
+
+		if (user) {
+			try {
+				if (displayName && displayName !== '') {
+					await updateProfile(user, {
+						displayName,
+					});
+				}
+
+				//=> ESTUDAR SOBRE CADASTRO DE TELEFONE
+				// if (phoneNumber && phoneNumber !== '') {
+				// 	const phoneCredential = PhoneAuthProvider.credential(
+				// 		user.phoneNumber as string,
+				// 		user.email as string
+				// 	);
+				// 	await updatePhoneNumber(user, phoneCredential);
+				// }
+
+				if (photo) {
+					const imageName = `profile_photos/${user.uid}-${Date.now()}`;
+					const storageReference = storageRef(storage, imageName);
+					await uploadBytes(storageReference, photo);
+					const photoURL = await getDownloadURL(storageReference);
+
+					await updateProfile(user, {
+						photoURL,
+					});
+				}
+
+				return true;
+			} catch (error) {
+				console.error('Erro ao atualizar o perfil do usuário:', error);
+				return false;
 			}
-			updateProfile(auth.currentUser!, newUserInfo);
-			dispatch({ type: types.SUCCESS });
-
-			console.log('Dados do userInfo atualizados com sucesso!');
-		} catch (error) {
-			dispatch({ type: types.ERROR });
-			console.error('Erro ao atualizar os dados do userInfo:', error);
+		} else {
+			return false;
 		}
-	};
+	}
 
-	function getUserRef() {
+	async function getUserData() {
 		if (user) {
 			const userRef = doc(firestore, 'users', user.uid);
-			return userRef;
+			const userSnapshot = await getDoc(userRef);
+			const userData = userSnapshot.data();
+			console.log('userData:', userData);
+			return userData;
 		}
 
 		return null;
 	}
 
 	return {
-		updateUserInfo,
-		getUserRef,
+		getUserData,
+		updateProfileData,
 		userError: state.error,
 		userLoading: state.loading,
 	};
