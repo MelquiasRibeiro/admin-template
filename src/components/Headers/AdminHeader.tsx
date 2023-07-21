@@ -32,10 +32,13 @@ export function AdminHeader({ burger }: Props) {
 			{burger && burger}
 
 			<Box sx={{ flex: 1 }} />
+
 			{/* <ActionIcon onClick={open}>
 				<IconSettings size="1.25rem" />
 			</ActionIcon> */}
+
 			<UserButton
+				//@ts-ignore
 				image={user?.photoURL || null}
 				name={user?.displayName || 'user name'}
 				email={user?.email || 'user@mail.com'}
