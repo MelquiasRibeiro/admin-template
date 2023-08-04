@@ -14,7 +14,7 @@ interface Props {
 export default function DashboardLayout({ children }: Props) {
 	const { userData } = useContext(AuthContext);
 	const [opened, setOpened] = useState(false);
-	const IsAdmin = userData.profileType.includes('ADMIN');
+	const IsAdmin = userData?.profileType.includes('ADMIN');
 	const routes = IsAdmin ? navLinks : navLinks.filter(objeto => objeto.label !== 'Admin');
 
 	return (

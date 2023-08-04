@@ -1,7 +1,15 @@
 'use client';
 
 import { useAuth } from '@/hooks/useAuth';
-import { Paper, TextInput, PasswordInput, Space, Button } from '@mantine/core';
+import {
+	Paper,
+	TextInput,
+	PasswordInput,
+	Space,
+	Button,
+	Box,
+	LoadingOverlay,
+} from '@mantine/core';
 import { useState } from 'react';
 import InputMask from 'react-input-mask';
 
@@ -18,46 +26,49 @@ export function RegisterForm() {
 
 	return (
 		<Paper withBorder shadow="md" p={30} mt={30} radius="md">
-			<TextInput
-				label="Full Name"
-				placeholder="My Name "
-				required
-				onChange={e => setName(e.target.value)}
-			/>
-			<Space h="md" />
-			<InputMask
-				mask="+999(99)99999-9999"
-				value={phone}
-				onChange={e => setPhone(e.target.value)}
-			>
-				{
-					//@ts-ignore
-					inputProps => (
-						<TextInput
-							{...inputProps}
-							label="Phone"
-							placeholder="+55(98)98187-7537"
-							required
-						/>
-					)
-				}
-			</InputMask>
+			<Box maw={400} pos="relative">
+				<LoadingOverlay visible={authLoading} overlayBlur={2} />
+				<TextInput
+					label="Full Name"
+					placeholder="My Name "
+					required
+					onChange={e => setName(e.target.value)}
+				/>
+				<Space h="md" />
+				<InputMask
+					mask="+999(99)99999-9999"
+					value={phone}
+					onChange={e => setPhone(e.target.value)}
+				>
+					{
+						//@ts-ignore
+						inputProps => (
+							<TextInput
+								{...inputProps}
+								label="Phone"
+								placeholder="+55(98)98187-7537"
+								required
+							/>
+						)
+					}
+				</InputMask>
 
-			<Space h="md" />
-			<TextInput
-				label="Email"
-				placeholder="test@example.com"
-				required
-				onChange={e => setEmail(e.target.value)}
-			/>
-			<PasswordInput
-				label="Password"
-				placeholder="Your password"
-				required
-				mt="md"
-				onChange={e => setPassword(e.target.value)}
-			/>
-			<Space h="md" />
+				<Space h="md" />
+				<TextInput
+					label="Email"
+					placeholder="test@example.com"
+					required
+					onChange={e => setEmail(e.target.value)}
+				/>
+				<PasswordInput
+					label="Password"
+					placeholder="Your password"
+					required
+					mt="md"
+					onChange={e => setPassword(e.target.value)}
+				/>
+				<Space h="md" />
+			</Box>
 			<Button fullWidth mt="xl" onClick={() => handleRegister()} loading={authLoading}>
 				Sign Up
 			</Button>

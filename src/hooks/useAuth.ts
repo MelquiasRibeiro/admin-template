@@ -59,9 +59,11 @@ export function useAuth() {
 
 			dispatch({ type: types.SUCCESS });
 			router.push(ROUTES.private.dashboard.name);
+			return;
 		} catch (error) {
 			console.log(error);
 			dispatch({ type: types.ERROR });
+			return error.message;
 		}
 	};
 
